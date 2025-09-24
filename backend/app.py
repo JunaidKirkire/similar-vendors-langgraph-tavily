@@ -22,9 +22,10 @@ async def health():
 
 @app.post("/api/similar")
 async def similar(req: SimilarVendorsRequest):
+    payload = req.model_dump(mode="json")
     try:
-        result = await run_graph(req.dict())
-        doc = {"kind":"similar_vendors","input": req.dict(),"output": result,"created_at": datetime.now(timezone.utc).isoformat()}
+        result = await run_graph(payload)
+        doc = {"kind":"similar_vendors","input": payload,"output": result,"created_at": datetime.now(timezone.utc).isoformat()}
         if db_service.db is None:
             raise RuntimeError("Database not initialized")
         await db_service.db.runs.insert_one(doc)
