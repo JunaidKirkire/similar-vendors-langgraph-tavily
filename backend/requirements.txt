@@ -12,3 +12,4 @@ langgraph==0.2.18
 langchain-core==0.2.41
 langchain-openai==0.1.24
 openai==1.51.0
+certifi==2024.8.30
